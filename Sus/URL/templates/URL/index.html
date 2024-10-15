@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL App</title>
+    {% load static %}
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'URL/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'URL/apple-touch-icon.png' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Heading -->
+        <header>
+            <h1>Welcome to the URL App!</h1>
+        </header>
+
+        <!-- URL Form Section -->
+        <section class="form-container">
+            <p style="font-size: 2em;">Enter a URL to check for phishing:</p>
+            <form id="urlForm" action="" method="POST" novalidate>
+                {% csrf_token %}
+                <label for="urlInput" class="sr-only">URL:</label>
+                <input 
+                    type="url" 
+                    name="url" 
+                    id="urlInput" 
+                    placeholder="Enter URL" 
+                    required
+                    aria-label="Enter URL to check"
+                >
+                <button type="submit">Check</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Link to external JavaScript -->
+    <script src="{% static 'URL/script.js' %}"></script>
+</body>
+</html>
