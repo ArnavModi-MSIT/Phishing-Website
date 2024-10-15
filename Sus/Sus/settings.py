@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rub6(p+!dt9ok-7i0ut%@vsyq_euch&^@wa=l)s@y=p@4+anbt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'phishing-website-9fun.onrender.com',
@@ -122,15 +122,7 @@ USE_TZ = True
 
 # settings.py
 
+# settings.py
 STATIC_URL = '/static/'
-
-# Ensure this points to the correct directory
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'URL', 'static'),  # Adjust this path to match your project structure
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Collect static files here for production
-
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

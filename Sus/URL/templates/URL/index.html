@@ -17,22 +17,27 @@
         </header>
 
         <!-- URL Form Section -->
-        <section class="form-container">
-            <p style="font-size: 2em;">Enter a URL to check for phishing:</p>
-            <form id="urlForm" action="" method="POST" novalidate>
-                {% csrf_token %}
-                <label for="urlInput" class="sr-only">URL:</label>
-                <input 
-                    type="url" 
-                    name="url" 
-                    id="urlInput" 
-                    placeholder="Enter URL" 
-                    required
-                    aria-label="Enter URL to check"
-                >
-                <button type="submit">Check</button>
-            </form>
-        </section>
+        <main>
+            <section class="form-container">
+                <p class="intro-text">Enter a URL to check for phishing:</p>
+                <form id="urlForm" action="" method="POST" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="urlInput" class="sr-only">URL:</label>
+                        <input 
+                            type="url" 
+                            name="url" 
+                            id="urlInput" 
+                            placeholder="Enter URL" 
+                            required 
+                            aria-label="Enter URL to check for phishing"
+                        >
+                        <button type="submit" class="btn-submit">Check</button>
+                    </div>
+                </form>
+                
+            </section>
+        </main>
     </div>
 
     <!-- Link to external JavaScript -->

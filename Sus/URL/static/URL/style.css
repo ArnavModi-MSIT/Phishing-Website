@@ -43,14 +43,18 @@ h1 {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Add subtle animation effect to the form on hover */
-.form-container:hover {
-    transform: scale(1.02);
+/* Group input and button on the same line */
+.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Adds space between input and button */
+    width: 100%;
 }
 
 /* Input styling */
 input[type="url"] {
-    width: 350px;
+    width: 70%; /* Adjust input width */
     padding: 12px;
     border: 2px solid #ddd;
     border-radius: 6px;
@@ -60,7 +64,7 @@ input[type="url"] {
 }
 
 /* Change border and shadow on focus */
-input[type="url"]:focus {
+input[type="url"]:focus, input[type="url"]:focus-visible {
     border-color: #ff7f50;
     box-shadow: 0 0 8px rgba(255, 127, 80, 0.5);
 }
@@ -91,15 +95,15 @@ button:active {
     transform: translateY(1px);
 }
 
-/* Margin for better spacing around form */
-button {
-    margin-bottom: 20px;
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
-    input[type="url"] {
-        width: 80%; /* Make input width responsive */
+    .form-group {
+        flex-direction: column; /* Stack input and button vertically */
+        width: 100%;
+    }
+
+    input[type="url"], button {
+        width: 100%; /* Input and button take full width on small screens */
     }
 
     h1 {
