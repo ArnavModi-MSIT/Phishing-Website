@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL App</title>
     {% load static %}
-    <!-- Link to external stylesheet -->
     <link rel="stylesheet" type="text/css" href="{% static 'URL/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'URL/apple-touch-icon.png' %}">
 </head>
 <body>
     <div class="container">
-        <!-- Main Heading -->
         <header>
-            <h1>Welcome to the URL App!</h1>
+            <h1>Welcome to the URL TESTING App!</h1>
         </header>
 
-        <!-- URL Form Section -->
         <main>
             <section class="form-container">
                 <p class="intro-text">Enter a URL to check for phishing:</p>
-                <form id="urlForm" action="" method="POST" novalidate>
+                <form id="urlForm" action="{% url 'check_url' %}" method="POST" novalidate aria-describedby="formHelp">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="urlInput" class="sr-only">URL:</label>
@@ -31,16 +28,38 @@
                             placeholder="Enter URL" 
                             required 
                             aria-label="Enter URL to check for phishing"
+                            aria-describedby="urlHelp"
                         >
                         <button type="submit" class="btn-submit">Check</button>
                     </div>
+                    <small id="urlHelp" class="form-text">Please enter a valid URL (including http:// or https://).</small>
                 </form>
-                
+
+                <section class="output-container">
+                    <p class="output-label">Result:</p>
+                    <div id="outputBox" class="output-box">
+                        {% if result %}
+                        {{ result }}
+                        {% else %}
+                        Output will appear here.
+                        {% endif %}
+                    </div>
+                </section>
+
+                <section class="option-container">
+                    <p class="TF-label">Was the prediction right?</p>
+                    <div id="TFBox" class="option-container">
+                        <form id="feedbackForm" method="POST" action="{% url 'feedback_url' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-submit" name="feedback" value="yes">YES</button>
+                            <button type="submit" class="btn-submit" name="feedback" value="no">NO</button>
+                        </form>
+                    </div>
+                </section>
             </section>
         </main>
     </div>
 
-    <!-- Link to external JavaScript -->
     <script src="{% static 'URL/script.js' %}"></script>
 </body>
 </html>

@@ -5,11 +5,11 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, roc_auc_score
 import xgboost as xgb
-import pickle
+import dill  # Use dill instead of pickle
 import scipy.sparse as sp
 
 # Load the dataset
-df = pd.read_csv("phishing_site_urls.csv")
+df = pd.read_csv(r"C:\Coding\Phishing\1\phishing_site_urls.csv")
 
 # Remove duplicates and handle missing values
 df = df.drop_duplicates(subset='URL')
@@ -70,10 +70,10 @@ y_pred = model.predict(X_test)
 print("ROC AUC Score:", roc_auc_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
-# Save the XGBoost model
-with open('xgboost_phishing_model.pkl', 'wb') as model_file:
-    pickle.dump(model, model_file)
+# Save the XGBoost model using dill
+with open(r'C:\Coding\Phishing\1\xgboost_phishing_model.pkl', 'wb') as model_file:
+    dill.dump(model, model_file)
 
-# Save the vectorizer
-with open('vectorizer.pkl', 'wb') as vectorizer_file:
-    pickle.dump(vectorizer, vectorizer_file)
+# Save the vectorizer using dill
+with open(r'C:\Coding\Phishing\1\vectorizer.pkl', 'wb') as vectorizer_file:
+    dill.dump(vectorizer, vectorizer_file)
