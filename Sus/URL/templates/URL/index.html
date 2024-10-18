@@ -45,17 +45,6 @@
                         {% endif %}
                     </div>
                 </section>
-
-                <section class="option-container">
-                    <p class="TF-label">Was the prediction right?</p>
-                    <div id="TFBox" class="option-container">
-                        <form id="feedbackForm" method="POST" action="{% url 'feedback_url' %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-submit" name="feedback" value="yes">YES</button>
-                            <button type="submit" class="btn-submit" name="feedback" value="no">NO</button>
-                        </form>
-                    </div>
-                </section>
             </section>
         </main>
     </div>

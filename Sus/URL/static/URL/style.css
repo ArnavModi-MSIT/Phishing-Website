@@ -18,7 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     height: auto;
-    max-width: 90%;
+    max-width: 150%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -134,7 +134,6 @@ button:active {
 
 /* Visibility of output box */
 .output-box::before {
-    content: "Output will appear here"; /* Placeholder text before output */
     color: #e41010;
     display: block;
 }
