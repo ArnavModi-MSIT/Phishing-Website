@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+import time  # For tracking time
 from urllib.parse import urlparse
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
@@ -8,10 +9,16 @@ import xgboost as xgb
 import dill  # Use dill instead of pickle
 import scipy.sparse as sp
 
+# Start time for the entire process
+start_time = time.time()
+
 # Load the dataset
+load_start = time.time()
 df = pd.read_csv(r"C:\Coding\Phishing\1\phishing_site_urls.csv")
+print(f"Dataset loaded in {time.time() - load_start:.2f} seconds")
 
 # Remove duplicates and handle missing values
+preprocess_start = time.time()
 df = df.drop_duplicates(subset='URL')
 df = df.dropna(subset=['URL'])
 
@@ -35,14 +42,17 @@ df['num_dots'] = df['URL'].apply(lambda x: x.count('.'))
 # Convert categorical labels to numeric values
 label_mapping = {'good': 0, 'bad': 1}
 df['Label'] = df['Label'].map(label_mapping)
+print(f"Preprocessing done in {time.time() - preprocess_start:.2f} seconds")
 
 # Replace lambda with a named function for tokenization
 def custom_tokenizer(url):
     return url.split('/')
 
 # Tokenize and vectorize URLs
+tokenization_start = time.time()
 vectorizer = CountVectorizer(tokenizer=custom_tokenizer, token_pattern=None)
 X_url = vectorizer.fit_transform(df['URL'])
+print(f"Tokenization and vectorization done in {time.time() - tokenization_start:.2f} seconds")
 
 # Combine URL features with additional features
 X_additional = df[['url_length', 'num_dots']].values
@@ -52,28 +62,43 @@ X_combined = sp.hstack([X_url, X_additional])
 y = df['Label']
 
 # Sample data before splitting
-df_sampled = df.sample(frac=0.1, random_state=42)
+sampling_start = time.time()
+df_sampled = df.sample(frac=1, random_state=42)
+print(f"Sampling done in {time.time() - sampling_start:.2f} seconds")
 
 # Split the data into training and test sets
+split_start = time.time()
 X = sp.hstack([vectorizer.transform(df_sampled['URL']), df_sampled[['url_length', 'num_dots']].values])
 y = df_sampled['Label']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print(f"Data split into train and test sets in {time.time() - split_start:.2f} seconds")
 
 # Train the XGBoost model
+train_start = time.time()
 model = xgb.XGBClassifier(max_depth=5, eval_metric='logloss')
 model.fit(X_train, y_train)
+print(f"Model training done in {time.time() - train_start:.2f} seconds")
 
 # Make predictions
+prediction_start = time.time()
 y_pred = model.predict(X_test)
+print(f"Predictions made in {time.time() - prediction_start:.2f} seconds")
 
 # Evaluate the model
 print("ROC AUC Score:", roc_auc_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
 # Save the XGBoost model using dill
+save_model_start = time.time()
 with open(r'C:\Coding\Phishing\1\xgboost_phishing_model.pkl', 'wb') as model_file:
     dill.dump(model, model_file)
+print(f"Model saved in {time.time() - save_model_start:.2f} seconds")
 
 # Save the vectorizer using dill
+save_vectorizer_start = time.time()
 with open(r'C:\Coding\Phishing\1\vectorizer.pkl', 'wb') as vectorizer_file:
     dill.dump(vectorizer, vectorizer_file)
+print(f"Vectorizer saved in {time.time() - save_vectorizer_start:.2f} seconds")
+
+# Total time for the process
+print(f"Total time taken: {time.time() - start_time:.2f} seconds")

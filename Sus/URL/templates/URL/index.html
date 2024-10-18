@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Welcome to the URL TESTING App!</h1>
+            <h1>Welcome to the URL Testing App!</h1>
         </header>
 
         <main>
@@ -39,9 +39,9 @@
                     <p class="output-label">Result:</p>
                     <div id="outputBox" class="output-box">
                         {% if result %}
-                        {{ result }}
+                        <p>{{ result }}</p>  <!-- Displaying the result in a paragraph for better styling -->
                         {% else %}
-                        Output will appear here.
+                        <p>Output will appear here.</p>
                         {% endif %}
                     </div>
                 </section>
@@ -49,6 +49,7 @@
         </main>
     </div>
 
+    <!-- Adding script file for custom JavaScript -->
     <script src="{% static 'URL/script.js' %}"></script>
 </body>
 </html>

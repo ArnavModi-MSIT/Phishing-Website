@@ -18,7 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     height: auto;
-    max-width: 150%;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -123,13 +123,14 @@ button:active {
     padding: 15px;
     background-color: #f9f9f9;
     min-height: 50px;
-    width: 50%; /* Ensure the box takes up full width of container */
-    max-width: 100%; /* Adjusted to ensure equal width */
+    width: 100%; /* Ensure the box takes up full width of container */
+    max-width: 500%; /* Adjusted to ensure equal width */
     font-size: 16px;
     color: #1e1212;
-    text-align: center;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    text-align: center;
 }
 
 /* Visibility of output box */
@@ -137,6 +138,12 @@ button:active {
     color: #e41010;
     display: block;
 }
+
+.output-box:hover, .output-box:focus {
+    border-color: #ff7f50;
+    box-shadow: 0 0 8px rgba(255, 127, 80, 0.5);
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
