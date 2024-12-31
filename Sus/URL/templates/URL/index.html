@@ -40,6 +40,14 @@
                     <div id="outputBox" class="output-box">
                         {% if result %}
                         <p>{{ result }}</p>  <!-- Displaying the result in a paragraph for better styling -->
+                        <form id="feedbackForm" action="/feedback/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="url" value="{{ url }}">
+                            <input type="hidden" name="result" value="{{ result }}">
+                            <p>Is this result correct?</p>
+                            <button type="submit" name="feedback" value="yes">Yes</button>
+                            <button type="submit" name="feedback" value="no">No</button>
+                        </form>
                         {% else %}
                         <p>Output will appear here.</p>
                         {% endif %}
