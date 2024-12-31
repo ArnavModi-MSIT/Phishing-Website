@@ -5,12 +5,7 @@ from django.utils.timezone import now
 def index(request):
     """Renders the index page."""
     timestamp = now().timestamp()  # Get a unique timestamp
-    return render(request, 'URL/index.html', {'timestamp': timestamp})
-
-
-def index(request):
-    """Renders the index page."""
-    return render(request, 'URL/index.html', {'result': None})
+    return render(request, 'URL/index.html', {'timestamp': timestamp, 'result': None})
 
 def check_url(request):
     """Handles URL checking and displays the result."""

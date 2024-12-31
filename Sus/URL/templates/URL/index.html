@@ -17,7 +17,7 @@
         <main>
             <section class="form-container">
                 <p class="intro-text">Enter a URL to check for phishing:</p>
-                <form id="urlForm" action="{% url 'check_url' %}" method="POST" novalidate aria-describedby="formHelp">
+                <form id="urlForm" action="/" method="POST" novalidate aria-describedby="formHelp">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="urlInput" class="sr-only">URL:</label>
