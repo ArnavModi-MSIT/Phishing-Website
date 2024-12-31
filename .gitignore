@@ -1,0 +1,6 @@
+/.venv
+/Sus/Sus/__pycache__
+/Sus/URL/__pycache__
+/1/phishing_site_urls.csv
+/1/vectorizer.pkl
+/1/xgboost_phishing_model.pkl
