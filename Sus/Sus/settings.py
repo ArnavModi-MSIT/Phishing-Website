@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Sus.Sus.wsgi.application'
+WSGI_APPLICATION = 'Sus.wsgi.application'
 
 
 # Database
@@ -82,7 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'phishing_database',
-        'ENHOST': os.environ.get('MONGODB_URL'),  # Using the MongoDB URL from the environment variable
+        'CLIENT': {
+            'host': os.environ.get('MONGODB_URL'),
+        }
     }
 }
 
