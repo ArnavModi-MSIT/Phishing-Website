@@ -78,17 +78,6 @@ WSGI_APPLICATION = 'Sus.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'phishing_database',
-        'CLIENT': {
-            'host': os.environ.get('MONGODB_URL'),
-        }
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
