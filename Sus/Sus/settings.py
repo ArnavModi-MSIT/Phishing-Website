@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rub6(p+!dt9ok-7i0ut%@vsyq_euch&^@wa=l)s@y=p@4+anbt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'phishing-website-2vkz.onrender.com',
