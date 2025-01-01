@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-rub6(p+!dt9ok-7i0ut%@vsyq_euch&^@wa=l)s@y=p@4+anbt
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'phishing-website-9fun.onrender.com',
+    'phishing-website-2vkz.onrender.com',
     'localhost',  # For local development
     '127.0.0.1',  # For local development
 ]
