@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL App</title>
+    <title>URL Checker</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'URL/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'URL/apple-touch-icon.png' %}">
@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Welcome to the URL Testing App!</h1>
+            <h1>URL Checker</h1>
         </header>
 
         <main>
@@ -20,7 +20,7 @@
                 <form id="urlForm" action="/" method="POST" novalidate aria-describedby="formHelp">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="urlInput" class="sr-only">URL:</label>
+                        <label for="urlInput">URL:</label>
                         <input 
                             type="url" 
                             name="url" 
@@ -39,17 +39,19 @@
                     <p class="output-label">Result:</p>
                     <div id="outputBox" class="output-box">
                         {% if result %}
-                        <p>{{ result }}</p>  <!-- Displaying the result in a paragraph for better styling -->
+                        <p><strong>Result:</strong> {{ result|capfirst }}</p>
                         <form id="feedbackForm" action="/feedback/" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="url" value="{{ url }}">
                             <input type="hidden" name="result" value="{{ result }}">
                             <p>Is this result correct?</p>
-                            <button type="submit" name="feedback" value="yes">Yes</button>
-                            <button type="submit" name="feedback" value="no">No</button>
+                            <div class="feedback-buttons">
+                                <button type="submit" name="feedback" value="yes" class="btn-feedback">Yes</button>
+                                <button type="submit" name="feedback" value="no" class="btn-feedback">No</button>
+                            </div>
                         </form>
                         {% else %}
-                        <p>Output will appear here.</p>
+                        <p>Output will appear here after you submit a URL.</p>
                         {% endif %}
                     </div>
                 </section>
@@ -57,7 +59,7 @@
         </main>
     </div>
 
-    <!-- Adding script file for custom JavaScript -->
+    <!-- JavaScript for custom behaviors -->
     <script src="{% static 'URL/script.js' %}"></script>
 </body>
 </html>

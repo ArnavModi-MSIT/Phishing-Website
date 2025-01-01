@@ -17,7 +17,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: auto;
     max-width: 100%;
     margin: 0 auto;
     padding: 20px;
@@ -25,7 +24,7 @@ body {
 
 /* Heading at the top */
 h1 {
-    margin-bottom: 60px; /* Reduced margin for better layout */
+    margin-bottom: 40px;
     color: #2c3e50;
     text-align: center;
     font-size: 2.5em;
@@ -33,7 +32,7 @@ h1 {
     text-shadow: 1px 1px #eaeaea;
 }
 
-/* Form container with better styling */
+/* Form container */
 .form-container {
     background-color: white;
     padding: 20px;
@@ -46,21 +45,20 @@ h1 {
     margin-top: 20px;
     width: 100%;
     max-width: 500px;
-    transition: transform 0.3s ease-in-out;
 }
 
-/* Group input and button on the same line */
+/* Form group: URL input and button alignment */
 .form-group {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    width: 100%; /* Ensure it takes the full width */
+    width: 100%;
 }
 
 /* Input styling */
 input[type="url"] {
-    flex-grow: 1; /* Allows the input to take available space */
+    flex-grow: 1;
     padding: 12px;
     border: 2px solid #ddd;
     border-radius: 6px;
@@ -69,8 +67,7 @@ input[type="url"] {
     transition: all 0.3s ease-in-out;
 }
 
-/* Change border and shadow on focus */
-input[type="url"]:focus, input[type="url"]:focus-visible {
+input[type="url"]:focus {
     border-color: #ff7f50;
     box-shadow: 0 0 8px rgba(255, 127, 80, 0.5);
 }
@@ -89,23 +86,21 @@ button {
     transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.3s;
 }
 
-/* Button hover effect */
 button:hover {
     background-color: #2980b9;
     transform: translateY(-2px);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Button active state */
 button:active {
     background-color: #1a60a1;
     transform: translateY(1px);
 }
 
-/* Output box styling */
+/* Output container */
 .output-container {
-    width: 100%; /* Ensure it takes full width of the container */
-    max-width: 500px; /* Same max-width as the input */
+    width: 100%;
+    max-width: 500px;
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -123,8 +118,7 @@ button:active {
     padding: 15px;
     background-color: #f9f9f9;
     min-height: 50px;
-    width: 100%; /* Ensure the box takes up full width of container */
-    max-width: 500%; /* Adjusted to ensure equal width */
+    width: 100%;
     font-size: 16px;
     color: #1e1212;
     border-radius: 8px;
@@ -133,34 +127,84 @@ button:active {
     text-align: center;
 }
 
-/* Visibility of output box */
-.output-box::before {
-    color: #e41010;
-    display: block;
-}
-
-.output-box:hover, .output-box:focus {
+/* Highlight on hover */
+.output-box:hover {
     border-color: #ff7f50;
     box-shadow: 0 0 8px rgba(255, 127, 80, 0.5);
 }
 
+/* Feedback section styling */
+.feedback-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
 
-/* Responsive adjustments */
+/* Feedback YES and NO buttons */
+.feedback-buttons button {
+    flex: 1;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.feedback-buttons button[name="feedback"][value="yes"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.feedback-buttons button[name="feedback"][value="yes"]:hover {
+    background-color: #388E3C;
+}
+
+.feedback-buttons button[name="feedback"][value="no"] {
+    background-color: #F44336;
+    color: white;
+}
+
+.feedback-buttons button[name="feedback"][value="no"]:hover {
+    background-color: #D32F2F;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .output-box {
-        width: 100%; /* Make it full width on smaller screens */
+    .form-group {
+        flex-direction: column;
+    }
+
+    input[type="url"] {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .feedback-buttons {
+        flex-direction: column;
+        gap: 10px;
     }
 }
-
-/* Option container for feedback */
-.option-container {
+.feedback-buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-/* Additional styles for YES and NO buttons */
-.option-container button {
-    width: 100%; /* Full width for feedback buttons */
+.feedback-buttons .btn-feedback {
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.feedback-buttons .btn-feedback:hover {
+    opacity: 0.8;
 }
