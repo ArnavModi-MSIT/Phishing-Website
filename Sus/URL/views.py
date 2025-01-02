@@ -2,11 +2,17 @@ from django.shortcuts import render, redirect
 from .ml_model import predict_url
 from django.utils.timezone import now
 from pymongo import MongoClient
+from urllib.parse import urlparse
 
 # Connect to MongoDB
 client = MongoClient('mongodb://localhost:27017/')
 db = client['phishing_database']
 phishing_urls = db['phishing_urls']
+
+def normalize_url(url):
+    """Normalize URL by removing unnecessary parts like 'www'."""
+    parsed_url = urlparse(url.lower())
+    return parsed_url.netloc + parsed_url.path
 
 def index(request):
     """Renders the index page."""
@@ -20,30 +26,31 @@ def check_url(request):
     if request.method == "POST":
         url = request.POST.get('url', '').strip()
         if url:
+            # Normalize the URL for consistent checking
+            normalized_url = normalize_url(url)
+
             # Check the database for the URL
-            existing_entry = phishing_urls.find_one({'url': url})
+            existing_entry = phishing_urls.find_one({'url': normalized_url})
             if existing_entry:
                 # Ensure that 'label' field exists in the existing entry
                 result = existing_entry.get('label', None)
                 if result is None:
                     # If label does not exist, predict it and update the database
-                    prediction = predict_url(url)  # Call your prediction function
+                    prediction = predict_url(url)
                     result = "bad" if prediction == "bad" else "good"
                     phishing_urls.update_one(
-                        {'url': url},
-                        {'$set': {'label': result}}  # Ensure the label field is added
+                        {'url': normalized_url},
+                        {'$set': {'label': result}}
                     )
             else:
                 # If URL is not found, predict and store it in the database
-                prediction = predict_url(url)  # Call your prediction function
+                prediction = predict_url(url)
                 result = "bad" if prediction == "bad" else "good"
-                # Store the result in the database
-                phishing_urls.insert_one({'url': url, 'label': result})
+                phishing_urls.insert_one({'url': normalized_url, 'label': result})
         else:
             result = "Invalid URL. Please try again."
 
     return render(request, 'URL/index.html', {'result': result, 'url': url})
-
 
 def feedback(request):
     """Handles user feedback and stores it in MongoDB."""
@@ -52,8 +59,11 @@ def feedback(request):
         result = request.POST.get('result')
         feedback = request.POST.get('feedback')
 
+        # Normalize the URL for consistent checking
+        normalized_url = normalize_url(url)
+
         # Ensure the URL exists in the collection before updating
-        existing_entry = phishing_urls.find_one({'url': url})
+        existing_entry = phishing_urls.find_one({'url': normalized_url})
 
         if existing_entry:
             # Check if feedback already exists for this URL
@@ -73,7 +83,7 @@ def feedback(request):
 
                 # Update the record with the new label and feedback field
                 phishing_urls.update_one(
-                    {'url': url},
+                    {'url': normalized_url},
                     {'$set': {'label': label, 'feedback': feedback}}
                 )
                 print(f"Updated URL {url} with new label: {label} and feedback: {feedback}.")
