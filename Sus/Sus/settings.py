@@ -25,11 +25,7 @@ SECRET_KEY = 'django-insecure-rub6(p+!dt9ok-7i0ut%@vsyq_euch&^@wa=l)s@y=p@4+anbt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '.vercel.app',  # For Vercel deployment
-    'localhost',  # For local development
-    '127.0.0.1',  # For local development
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +41,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,11 +111,10 @@ USE_TZ = True
 
 # settings.py
 
-# settings.py
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'URL/static')
+    os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
