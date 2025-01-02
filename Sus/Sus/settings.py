@@ -4,7 +4,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
+SECRET_KEY = 'p@#4m1y&d0(8$g7c1!x2%b$0t^z9#q&n=jf3$k@w1+y7h*l^v!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
