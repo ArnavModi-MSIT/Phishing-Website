@@ -1,15 +1,19 @@
 {
-    "builds": [
-      {
-        "src": "Sus/wsgi.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/Sus/wsgi.py"
-      }
-    ]
-  }
-  
+  "builds": [
+    {
+      "src": "Sus/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "Sus/wsgi.py"
+    }
+  ]
+}
