@@ -3,9 +3,11 @@ from .ml_model import predict_url
 from django.utils.timezone import now
 from pymongo import MongoClient
 from urllib.parse import urlparse
+import os
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
+# Use environment variable for MongoDB connection string
+mongo_uri = os.getenv('MONGO_URI', 'mongodb+srv://arnavmodi23:yjtuexaqQAYCCdSL@cluster0.t7a9j.mongodb.net/')
+client = MongoClient(mongo_uri)
 db = client['phishing_database']
 phishing_urls = db['phishing_urls']
 
