@@ -9,7 +9,7 @@ SECRET_KEY = 'p@#4m1y&d0(8$g7c1!x2%b$0t^z9#q&n=jf3$k@w1+y7h*l^v!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://phishing-website-0kxz.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
