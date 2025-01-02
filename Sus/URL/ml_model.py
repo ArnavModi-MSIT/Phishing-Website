@@ -11,10 +11,10 @@ def custom_tokenizer(url):
     return url.split('/')
 
 # Load the saved model and vectorizer
-with open(r'C:\Coding\Phishing-Website\Sus\URL\xgboost_phishing_model.pkl', 'rb') as model_file:
+with open(r'Sus/URL/xgboost_phishing_model.pkl', 'rb') as model_file:
     model = dill.load(model_file)
 
-with open(r'C:\Coding\Phishing-Website\Sus\URL\vectorizer.pkl', 'rb') as vectorizer_file:
+with open(r'Sus/URL/vectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = dill.load(vectorizer_file)
 
 # Function to preprocess and predict URL
