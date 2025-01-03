@@ -8,6 +8,7 @@ from sklearn.metrics import classification_report, roc_auc_score
 import xgboost as xgb
 import dill
 import scipy.sparse as sp
+import os
 
 # Start time for the entire process
 start_time = time.time()
@@ -73,28 +74,49 @@ y = df_sampled['Label']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 print(f"Data split into train and test sets in {time.time() - split_start:.2f} seconds")
 
+# Convert to DMatrix format
 train_start = time.time()
-model = xgb.XGBClassifier(max_depth=5, eval_metric='logloss')
-model.fit(X_train, y_train)
+dtrain = xgb.DMatrix(X_train, label=y_train)
+dtest = xgb.DMatrix(X_test, label=y_test)
+
+# Set parameters
+params = {
+    'max_depth': 5,
+    'objective': 'binary:logistic',
+    'eval_metric': 'logloss'
+}
+
+# Train model
+model = xgb.train(
+    params,
+    dtrain,
+    num_boost_round=100,
+    evals=[(dtrain, 'train'), (dtest, 'test')],
+    verbose_eval=True
+)
 print(f"Model training done in {time.time() - train_start:.2f} seconds")
-
-
 prediction_start = time.time()
-y_pred = model.predict(X_test)
+y_pred = model.predict(dtest)
+y_pred_binary = [1 if p > 0.5 else 0 for p in y_pred]
 print(f"Predictions made in {time.time() - prediction_start:.2f} seconds")
 
 # Evaluate the model
 print("ROC AUC Score:", roc_auc_score(y_test, y_pred))
-print(classification_report(y_test, y_pred))
+print(classification_report(y_test, y_pred_binary))
+
+# Create output directory if it doesn't exist
+output_dir = "1"
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
 # Save the model in XGBoost's native format
 save_model_start = time.time()
-model.save_model(r'C:\Coding\Phishing-Website\1\xgboost_phishing_model.json')
+model.save_model(os.path.join(output_dir, 'xgboost_phishing_model.json'))
 print(f"Model saved in {time.time() - save_model_start:.2f} seconds")
 
-# Save the vectorizer using dill (keep this as is since it's not XGBoost related)
+# Save the vectorizer using dill
 save_vectorizer_start = time.time()
-with open(r'C:\Coding\Phishing-Website\1\vectorizer.pkl', 'wb') as vectorizer_file:
+with open(os.path.join(output_dir, 'vectorizer.pkl'), 'wb') as vectorizer_file:
     dill.dump(vectorizer, vectorizer_file)
 print(f"Vectorizer saved in {time.time() - save_vectorizer_start:.2f} seconds")
 
