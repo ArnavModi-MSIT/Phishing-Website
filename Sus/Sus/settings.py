@@ -7,10 +7,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'p@#4m1y&d0(8$g7c1!x2%b$0t^z9#q&n=jf3$k@w1+y7h*l^v!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['https://phishing-website-0kxz.onrender.com']
-
+ALLOWED_HOSTS = ['https://phishing-website-0kxz.onrender.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -56,11 +55,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Sus.wsgi.application'
 
 
-# Database (for local development using SQLite)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': '<Cloud_phishing>',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb+srv://arnavmodi23:yjtuexaqQAYCCdSL@cluster0.t7a9j.mongodb.net/'
+        }
     }
 }
 
