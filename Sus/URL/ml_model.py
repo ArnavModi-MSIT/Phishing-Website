@@ -14,9 +14,11 @@ def custom_tokenizer(url):
 # Get the current directory where this script is located
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Load the saved model and vectorizer using relative paths
-model_path = os.path.join(current_dir, 'xgboost_phishing_model.pkl')
+model_path = os.path.join(current_dir, 'xgboost_phishing_model.json')
 vectorizer_path = os.path.join(current_dir, 'vectorizer.pkl')
+
+model = xgb.XGBClassifier()
+model.load_model(model_path)
 
 # Load model
 with open(model_path, 'rb') as model_file:
