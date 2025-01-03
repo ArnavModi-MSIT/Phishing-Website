@@ -2,6 +2,15 @@ from pathlib import Path
 import os
 
 PORT = os.environ.get('PORT', 8000)
+
+import gc
+
+# Force garbage collection
+gc.collect()
+
+# Memory management settings
+CONN_MAX_AGE = 60
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
