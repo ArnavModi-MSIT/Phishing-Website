@@ -2,6 +2,7 @@ import xgboost as xgb
 import os
 import dill
 import scipy.sparse as sp
+import re
 
 # Get the current directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
